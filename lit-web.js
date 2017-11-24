@@ -47,7 +47,7 @@
                 // compile script content
                 const code = compile(markdown);
                 // execute code blocks
-                const wrapper = new Function(code + '//@ sourceURL=' + script.src);
+                const wrapper = new Function(code + '//# sourceURL=' + script.src);
                 wrapper();
             }
         });
