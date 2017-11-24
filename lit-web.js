@@ -1,8 +1,9 @@
 (() => {
     'use strict';
-    // test whether a chunk of code specifies javascript as the language
-    const language_regex = /^(js|javascript)\s*\n/;
-    const backticks_regex = /^```/gm
+    // test whether the line starts with backticks
+    const is_backticks = line => line.slice(0, 3) === '```';
+    // test whether the line starts with javascript language specifier after the backticks
+    const is_javascript = line => line.slice(0, 5) === '```js' || line.slice(0, 13) === '```javascript';
     // count backtick fences to make sure they are balanced
     const even_backticks = code => code.split('```').length % 2 !== 0;
     // extract JavaScript code blocks from a Markdown string
@@ -23,8 +24,10 @@
                 }
                 const even = chunks % 2 === 0;
                 let output;
-                if (even || backticks) {
-                    output = "\n// " + line;
+                const is_markdown = even || backticks;
+                if (is_markdown) {
+                    const line_break = i === 0 ? '' : "\n"
+                    output = line_break + "// " + line;
                 } else {
                     output = "\n" + line;
                 }
