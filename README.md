@@ -81,7 +81,7 @@ import '//path/to/lit-web.js';
 
 - [lit](https://github.com/vijithassar/lit) is a general-purpose source code preprocessing tool which allows you to code in a literate style in any language, and also load and interpret your Markdown documents directly
 - [lit-node](https://github.com/Rich-Harris/lit-node) is a wrapper for Node.js which lets Node interpret Markdown files, import modules declared inside Markdown files using `require()`, and also provides a REPL
-- [rollup-plugin-markdown](https://www.npmjs.com/package/rollup-plugin-markdown) implements essentially the same logic, but it is optimized for JavaScript code, works with sourcemaps, integrates with a [popular build tool](https://rollupjs.org), and is [available via npm](https://www.npmjs.com/package/rollup-plugin-markdown)
+- [rollup-plugin-markdown](https://www.npmjs.com/package/rollup-plugin-markdown) implements similar source code processing logic, but it provides more precise sourcemaps, integrates with a [popular build tool](https://rollupjs.org), and is [available via npm](https://www.npmjs.com/package/rollup-plugin-markdown)
 - [Blaze](https://github.com/0atman/blaze) is a clever literate programming tool which optimizes for *execution* instead of *building*, allowing you to send Markdown files directly into any language of your choosing without any intermediate steps
 - [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML
 - [CoffeeScript](http://coffeescript.org) and [Haskell](https://www.haskell.org/) support literate programming natively and do not need any additional tooling!
