@@ -10,7 +10,7 @@ For a more detailed discussion about why you might want to do this, or to implem
 
 Simply load both `lit-web` and a Markdown document containing literate programming on the page using `<script>` tags. The JavaScript code blocks from your Markdown document will execute. The Markdown portions will be commented out on the fly so that debugging tools will point to the correct line number with documentation intact.
 
-For example, a Markdown document, `app.md`
+For example, a Markdown document named `app.md`:
 
 ~~~markdown
 # this is a markdown file!
