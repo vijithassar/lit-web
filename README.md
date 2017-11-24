@@ -19,7 +19,7 @@ Load both `lit-web` and a Markdown document containing literate programming on t
 </html>
 ```
 
-The JavaScript code blocks from your Markdown document will execute.
+The JavaScript code blocks from your Markdown document will execute. The Markdown portions will be commented out so that debugging tools point to the correct line number with documentation intact.
 
 ~~~markdown
 # this is a markdown file!
@@ -39,7 +39,9 @@ The `type` attribute for your literate JavaScript script tag must be `text/liter
 # Caveats
 
 - A small performance penalty is incurred both by parsing your code blocks client side and by sending the extra Markdown text content over HTTP. This should be negligible in most cases. For better performance, use one of the alternative tools listed below and optimize your application build.
-- It's especially important that your literate programming scripts use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) internally in order to cleanly avoid scope conflicts. You should be using it anyway.
+- It's especially important that your literate programming scripts use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) internally in order to cleanly avoid scope conflicts, but of course you should already be using that anyway.
+- Line numbers reported by debugging tools may be off be a line or two because of the function wrapper that's added to improve scope safety.
+- Your code blocks are loaded using the [Function constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function), which is sort of like a somewhat safer version of [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) and is subject to some of the same concerns. Any possible security issues will simply depend on how safe your Markdown files are, which is roughly the same as it would be if you were loading regular JavaScript files.
 
 # Other Tools
 
