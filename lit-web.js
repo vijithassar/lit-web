@@ -3,7 +3,7 @@
     // test whether the line starts with backticks
     const is_backticks = line => line.slice(0, 3) === '```';
     // test whether the line starts with javascript language specifier after the backticks
-    const is_javascript = line => line.slice(0, 5) === '```js' || line.slice(0, 13) === '```javascript';
+    const is_javascript_backticks = line => line.slice(0, 5) === '```js' || line.slice(0, 13) === '```javascript';
     // count backtick fences to make sure they are balanced
     const balanced_backticks = code => code.split('```').length % 2 !== 0;
     // extract JavaScript code blocks from a Markdown string
@@ -15,16 +15,16 @@
         // split into lines
         const lines = markdown.split("\n");
         // count backticks
-        let chunks = 0;
+        let fences = 0;
         // comment out Markdown
         const code = lines
             .map(line => {
                 const backticks = is_backticks(line);
-                if (backticks) {
-                    chunks += 1;
+                const javascript_backticks = backticks ? is_javascript_backticks(line) : false;
+                if (javascript_backticks || (backticks && fences % 2 === 1)) {
+                    fences += 1;
                 }
-                const even = chunks % 2 === 0;
-                const is_markdown = even || backticks;
+                const is_markdown = fences % 2 === 0 || backticks;
                 if (is_markdown) {
                     return "// " + line;
                 } else {
