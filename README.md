@@ -38,14 +38,14 @@ The `type` attribute for your literate JavaScript script tag must be `text/markd
 
 ## Loading as ES Module
 
-Loading as a script tag is easiest, but you can also `import` the package to enable execution of Markdown documents on the page.
+Loading as a script tag is easiest, but you can also `import` the module to enable execution of Markdown documents on the page.
 
 ```javascript
 // import ES module during a build proecess
 import 'lit-web';
 ```
 
-In order to `import` from a live web page over remote HTTP, you must specify the file's location and extension rather than relying on the Node.js module path resolution logic.
+In order to `import` directly into a live web app over remote HTTP, you must specify the file's location and extension rather than relying on the Node.js module path resolution logic.
 
 ```javascript
 // import ES module remotely over HTTP
