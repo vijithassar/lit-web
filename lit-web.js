@@ -21,9 +21,13 @@
             .map(line => {
                 const backticks = is_backticks(line);
                 const javascript_backticks = backticks ? is_javascript_backticks(line) : false;
+                // increment the fence count if it's a valid
+                // opening or closing fence
                 if (javascript_backticks || (backticks && fences % 2 === 1)) {
                     fences += 1;
                 }
+                // are we currently inside a code block
+                // or a Markdown documentation passage?
                 const is_markdown = fences % 2 === 0 || backticks;
                 if (is_markdown) {
                     return "// " + line;
@@ -31,7 +35,8 @@
                     return line;
                 }
             });
-        // output a string representing an async function
+        // output a string representing a function body
+        // to be created with the Function constructor
         const wrapped = "(() => {\n" + code.join("\n") + "\n})();";
         return wrapped;
     };
