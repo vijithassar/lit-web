@@ -12,32 +12,33 @@
         if (! even_backticks(markdown)) {
             return;
         }
-        const lines = markdown.split("\n")
-        // split along backtick fences
-        let chunks = 0
-        // filter down to only code blocks
+        // split into lines
+        const lines = markdown.split("\n");
+        // count backticks
+        let chunks = 0;
+        // comment out Markdown
         const code = lines
             .map((line, i) => {
-                const backticks = backticks_regex.test(line);
+                const backticks = is_backticks(line);
                 if (backticks) {
-                    chunks += 1
+                    chunks += 1;
                 }
                 const even = chunks % 2 === 0;
                 let output;
                 const is_markdown = even || backticks;
                 if (is_markdown) {
-                    const line_break = i === 0 ? '' : "\n"
+                    const line_break = i === 0 ? '' : "\n";
                     output = line_break + "// " + line;
                 } else {
                     output = "\n" + line;
                 }
                 if (backticks && chunks % 2 === 0) {
-                    output += "\n"    
+                    output += "\n";
                 }
                 return output;
             });
         // output a string representing an async function
-        const wrapped = '(async () => {' + code.join('') + '})();';
+        const wrapped = "(() => {" + code.join('') + "})();";
         return wrapped;
     };
     document.addEventListener('DOMContentLoaded', () => {
