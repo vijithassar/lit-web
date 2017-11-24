@@ -1,8 +1,8 @@
 (() => {
     'use strict';
-    const regex = /^(js|javascript)\s*\n/;
     // test whether a chunk of code specifies javascript as the language
-    const is_javascript = chunk => regex.test(chunk);
+    const language_regex = /^(js|javascript)\s*\n/;
+    const backticks_regex = /^```/gm
     // count backtick fences to make sure they are balanced
     const even_backticks = code => code.split('```').length % 2 !== 0;
     // extract JavaScript code blocks from a Markdown string
@@ -11,17 +11,27 @@
         if (! even_backticks(markdown)) {
             return;
         }
+        const lines = markdown.split("\n")
         // split along backtick fences
-        const chunks = markdown.split(/^```/gm);
+        let chunks = 0
         // filter down to only code blocks
-        const code = chunks
-            .map((chunk, i) => {
-                const odd = i % 2;
-                if (odd && is_javascript(chunk)) {
-                    return chunk.replace(/^.+/, '');
-                } else {
-                    return chunk.replace(/^.+$/gm, '');
+        const code = lines
+            .map((line, i) => {
+                const backticks = backticks_regex.test(line);
+                if (backticks) {
+                    chunks += 1
                 }
+                const even = chunks % 2 === 0;
+                let output;
+                if (even || backticks) {
+                    output = "\n// " + line;
+                } else {
+                    output = "\n" + line;
+                }
+                if (backticks && chunks % 2 === 0) {
+                    output += "\n"    
+                }
+                return output;
             });
         // output a string representing an async function
         const wrapped = '(async () => {' + code.join('') + '})();';
@@ -39,7 +49,7 @@
                 // compile script content
                 const code = compile(markdown);
                 // execute code blocks
-                const wrapper = Reflect.construct(Function, [code]);
+                const wrapper = new Function(code + '//@ sourceURL=' + script.src);
                 wrapper();
             }
         });
