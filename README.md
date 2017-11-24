@@ -1,8 +1,10 @@
 # Overview
 
-`lit-web` is a simple HTTP loader for Markdown documents which lets web browsers extract and run JavaScript code from code blocks embedded in Markdown files, which in turn promotes good written documentation. This technique is called [literate programming](https://en.wikipedia.org/wiki/Literate_programming). `lit-web` strives to provide the *lowest possible barrier to entry* for literate programming – just include this tiny 4 kilobyte script tag on the page and you can start literate programming for the web using JavaScript.
+`lit-web` is a simple HTTP loader for Markdown documents which lets web browsers extract and run JavaScript code from code blocks embedded in Markdown files, which in turn promotes good written documentation. This technique is called [literate programming](https://en.wikipedia.org/wiki/Literate_programming).
 
 For a more detailed discussion about why you might want to do this, or to implement with other programming languages or without the occasional compromises made by `lit-web` in pursuit of ease of use, please instead see [lit](https://github.com/vijithassar/lit), a more powerful shell script which provides the same functionality in a more agnostic fashion.
+
+`lit-web` strives to provide the *lowest possible barrier to entry* for literate programming – just include this tiny 4 kilobyte script tag on the page and you can start literate programming for the web using JavaScript without any other tools, dependencies, or build processes.
 
 # Instructions
 
