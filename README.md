@@ -1,0 +1,51 @@
+# Overview
+
+`lit-web` is a simple HTTP loader for Markdown documents which lets web browsers extract and run JavaScript code from code blocks embedded in Markdown files, which in turn promotes good written documentation. This technique is called literate programming.
+
+For a more detailed discussion about why you might want to do this, or to implement with other programming languages, please instead see [lit](https://github.com/vijithassar/lit), a shell script which provides the same functionality in a more agnostic fashion.
+
+# Instructions
+
+Load both `lit-web` and a Markdown document containing literate programming on the page using `<script>` tags.
+
+```html
+<html>
+    <head>
+        <script type="text/javascript" src="//path/to/lit-web.js"></script>
+        <script type="text/literate-javascript" src="//path/to/script.js.md"></script>
+    </head>
+    <body>
+    </body>
+</html>
+```
+
+The JavaScript code blocks from your Markdown document will execute.
+
+~~~markdown
+# this is a markdown file!
+
+It can have *all the usual markdown stuff*, but only the JavaScript code blocks will run:
+
+```javascript
+// log a message
+console.log('hello world');
+```
+~~~
+
+You *must* include `js` or `javascript` as a language specifier after opening up a fenced code block. Fenced code blocks that specify any other language and fenced code blocks that do not specify a language at all will be ignored. This makes it possible for you to include other code in your Markdown file without that code being executed. This is particularly useful for including Bash commands.
+
+The `type` attribute for your literate JavaScript script tag must be `text/literate-javascript` so that `lit-web` can identify which scripts are loading Markdown documents that it should process and execute. However, the `type` attribute for `lit-web.js` must instead be boring old `text/javascript`, because before it is loaded there is no way to parse literate scripts. 
+
+# Caveats
+
+- A small performance penalty is incurred both by parsing your code blocks client side and by sending the extra Markdown text content over HTTP. This should be negligible in most cases. For better performance, use one of the alternative tools listed below and optimize your application build.
+- It's especially important that your literate programming scripts use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) internally in order to cleanly avoid scope conflicts. You should be using it anyway.
+
+# Other Tools
+
+- [lit](https://github.com/vijithassar/lit) is a general-purpose source code preprocessing tool which allows you to code in a literate style in any language, and also load and interpret your Markdown documents directly
+- [lit-node](https://github.com/Rich-Harris/lit-node) is a wrapper for Node.js which lets Node interpret Markdown files, import modules declared inside Markdown files using `require()`, and also provides a REPL
+- [rollup-plugin-markdown](https://www.npmjs.com/package/rollup-plugin-markdown) implements essentially the same logic, but it is optimized for JavaScript code, works with sourcemaps, integrates with a [popular build tool](https://rollupjs.org), and is [available via npm](https://www.npmjs.com/package/rollup-plugin-markdown)
+- [Blaze](https://github.com/0atman/blaze) is a clever literate programming tool which optimizes for *execution* instead of *building*, allowing you to send Markdown files directly into any language of your choosing without any intermediate steps
+- [Docco](http://ashkenas.com/docco/) and its many variants render literate source code into beautiful browsable HTML
+- [CoffeeScript](http://coffeescript.org) and [Haskell](https://www.haskell.org/) support literate programming natively and do not need any additional tooling!
