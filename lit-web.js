@@ -42,7 +42,7 @@
     };
     document.addEventListener('DOMContentLoaded', () => {
         // select all literate scripts in the DOM
-        const literate_scripts = Array.from(document.querySelectorAll('script[type="text/literate-javascript"]'));
+        const literate_scripts = Array.from(document.querySelectorAll('script[type="text/markdown"], script[type="text/literate-javascript"]'));
         // fetch the content for each literate script
         const script_contents = literate_scripts
             .map(script => {
