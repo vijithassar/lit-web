@@ -36,7 +36,7 @@ Some HTML to serve it:
 </html>
 ```
 
-`lit-web.js` will load text content of `app.md`, transpile it into the following JavaScript on the fly, and then execute the result:
+`lit-web.js` will load the content of `app.md`, transpile it into the following JavaScript on the fly, and then execute the result:
 
 ```javascript
 // # this is a markdown file!
