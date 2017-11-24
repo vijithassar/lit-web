@@ -5,11 +5,11 @@
     // test whether the line starts with javascript language specifier after the backticks
     const is_javascript = line => line.slice(0, 5) === '```js' || line.slice(0, 13) === '```javascript';
     // count backtick fences to make sure they are balanced
-    const even_backticks = code => code.split('```').length % 2 !== 0;
+    const balanced_backticks = code => code.split('```').length % 2 !== 0;
     // extract JavaScript code blocks from a Markdown string
     const compile = (markdown) => {
         // bail if backticks aren't balanced
-        if (! even_backticks(markdown)) {
+        if (! balanced_backticks(markdown)) {
             return;
         }
         // split into lines
@@ -18,27 +18,21 @@
         let chunks = 0;
         // comment out Markdown
         const code = lines
-            .map((line, i) => {
+            .map(line => {
                 const backticks = is_backticks(line);
                 if (backticks) {
                     chunks += 1;
                 }
                 const even = chunks % 2 === 0;
-                let output;
                 const is_markdown = even || backticks;
                 if (is_markdown) {
-                    const line_break = i === 0 ? '' : "\n";
-                    output = line_break + "// " + line;
+                    return "// " + line;
                 } else {
-                    output = "\n" + line;
+                    return line;
                 }
-                if (backticks && chunks % 2 === 0) {
-                    output += "\n";
-                }
-                return output;
             });
         // output a string representing an async function
-        const wrapped = "(() => {" + code.join('') + "})();";
+        const wrapped = "(() => {\n" + code.join("\n") + "\n})();";
         return wrapped;
     };
     document.addEventListener('DOMContentLoaded', () => {
