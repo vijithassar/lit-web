@@ -2,14 +2,14 @@
     'use strict';
     // test whether the line starts with backticks
     const is_backticks = line => line.slice(0, 3) === '```';
-    // test whether the line starts with javascript language specifier after the backticks
+    // test whether the line starts with backticks followed by a javascript language specifier
     const is_javascript_backticks = line => line.slice(0, 5) === '```js' || line.slice(0, 13) === '```javascript';
     // count backtick fences to make sure they are balanced
-    const balanced_backticks = code => code.split('```').length % 2 !== 0;
+    const balanced_fences = code => code.split('```').length % 2 !== 0;
     // extract JavaScript code blocks from a Markdown string
-    const compile = (markdown) => {
-        // bail if backticks aren't balanced
-        if (! balanced_backticks(markdown)) {
+    const compile = markdown => {
+        // exit immediately if backticks aren't balanced
+        if (! balanced_fences(markdown)) {
             return;
         }
         // split into lines
@@ -43,7 +43,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         // select all literate scripts in the DOM
         const literate_scripts = Array.from(document.querySelectorAll('script[type="text/literate-javascript"]'));
-        // compile and execute literate scripts
+        // process each literate script
         literate_scripts.forEach(async function(script) {
             const url = script.getAttribute('src');
             if (url) {
