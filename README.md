@@ -10,16 +10,7 @@ For a more detailed discussion about why you might want to do this, or to implem
 
 Simply load both `lit-web` and a Markdown document containing literate programming on the page using `<script>` tags. The JavaScript code blocks from your Markdown document will execute. The Markdown portions will be commented out on the fly so that debugging tools will point to the correct line number with documentation intact.
 
-```html
-<html>
-    <head>
-        <script type="text/javascript" src="//path/to/lit-web.js"></script>
-        <script type="text/markdown" src="//path/to/script.js.md"></script>
-    </head>
-    <body>
-    </body>
-</html>
-```
+For example, a Markdown document:
 
 ~~~markdown
 # this is a markdown file!
@@ -31,6 +22,32 @@ It can have *all the usual markdown stuff*, but only the JavaScript code blocks 
 console.log('hello world');
 ```
 ~~~
+
+Some HTML to serve it:
+
+```html
+<html>
+    <head>
+        <script type="text/javascript" src="//path/to/lit-web.js"></script>
+        <script type="text/markdown" src="//path/to/script.js.md"></script>
+    </head>
+    <body>
+    </body>
+</html>
+```
+
+`lit-web.js` will load the Markdown document, transpile it into the following JavaScript on the fly, and then execute the result:
+
+```javascript
+// # this is a markdown file!
+//
+// It can have *all the usual markdown stuff*, but only the JavaScript code blocks will run:
+//
+// ```javascript
+// log a message
+console.log('hello world');
+// ```
+```
 
 You *must* include `js` or `javascript` as a language specifier after opening up a fenced code block. Fenced code blocks that specify any other language and fenced code blocks that do not specify a language at all will be ignored. This makes it possible for you to include other code in your Markdown file without that code being executed. This is particularly useful for including Bash commands.
 
