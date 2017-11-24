@@ -1,1 +1,1 @@
-export { load } from './source/load.js';
+import './source/load.js';
