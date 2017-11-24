@@ -38,7 +38,7 @@ The `type` attribute for your literate JavaScript script tag must be `text/markd
 
 ## Loading as ES Module
 
-Loading as a script tag is easiest, but for more stable application builds which allow execution of Markdown you can also `import` the module.
+Loading as a script tag is easiest, but for more stable application builds which allow dynamic execution of arbitrary Markdown you can also `import` the module. (If you don't need your application to execute *arbitrary* Markdown on the fly, you're probably better off with a build-oriented tool such as [lit](https://github.com/vijithassar/lit) or the [Markdown importer](https://www.npmjs.com/package/rollup-plugin-markdown) for [Rollup](https://rollupjs.org).)
 
 ```javascript
 // import ES module during a build proecess
