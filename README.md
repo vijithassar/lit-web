@@ -4,13 +4,13 @@
 
 For a more detailed discussion about why you might want to do this, or to implement with other programming languages or without the occasional compromises made by `lit-web` in pursuit of ease of use, please instead see [lit](https://github.com/vijithassar/lit), a more powerful shell script which provides the same functionality in a more agnostic fashion.
 
-`lit-web` strives to provide the *lowest possible barrier to entry* for literate programming – just include this tiny 4 kilobyte script tag on the page and you can start literate programming for the web using JavaScript without any other tools, dependencies, or build processes.
+In contrast, `lit-web` strives to provide the *lowest possible barrier to entry* for literate programming – just include this tiny 4 kilobyte script tag on the page and you can immediately start literate programming for the web using JavaScript without any other tools, dependencies, or build processes.
 
 # Instructions
 
 ## Loading as `<script>` tag
 
-Simply load both `lit-web` and a Markdown document containing literate programming on the page using `<script>` tags. The JavaScript code blocks from your Markdown document will execute. The Markdown portions will be commented out on the fly so that debugging tools will point to the correct line number with documentation intact.
+Simply load both `lit-web.js` and a Markdown document containing literate programming on the page using `<script>` tags. The JavaScript code blocks from your Markdown document will execute, and the Markdown portions will be commented out on the fly so that debugging tools will point to the correct line number with documentation intact.
 
 For example, a Markdown document named `app.md`:
 
@@ -38,7 +38,7 @@ Some HTML to serve it:
 </html>
 ```
 
-`lit-web.js` will load the content of `app.md`, transpile it into the following JavaScript on the fly, and then execute the result:
+`lit-web.js` will load the content of `app.md`, transpile it into JavaScript on the fly by commenting out the Markdown content, and then execute the result:
 
 ```javascript
 // # this is a markdown file!
@@ -73,7 +73,7 @@ import '//path/to/lit-web.js';
 
 # Caveats
 
-- A small performance penalty is incurred both by parsing your code blocks client side and by sending the extra Markdown text content over HTTP. This should be negligible in most cases. For better performance, use one of the alternative tools listed below and optimize your application build.
+- There are performance costs to parsing your code blocks in the client and sending the extra Markdown text content over HTTP. This should be negligible in most of the quick-and-dirty situations where a dynamic solution like `lit-web` excels. For better performance, use one of the alternative tools listed below and optimize your application build.
 - It's especially important that your literate programming scripts use [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) internally in order to cleanly avoid scope conflicts, but of course you should already be using that anyway.
 - Exact line numbers reported by debugging tools may be off be a line or two relative to the original Markdown document because of the function wrapper that's added to improve scope safety.
 - Only one layer of in-browser Markdown parsing is supported, so you can't use this tool to load Markdown documents with ES6 `import` statements (as you can with [`lit-node`](https://github.com/Rich-Harris/lit-node), for example). To `import` additional literate code files into your project, set up a build process that incorporates one of the alternative tools listed below.
