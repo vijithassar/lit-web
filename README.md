@@ -6,9 +6,15 @@ For a more detailed discussion about why you might want to do this, or to implem
 
 In contrast, `lit-web` strives to provide the *lowest possible barrier to entry* for literate programming – just include this tiny 4 kilobyte script tag on the page and you can immediately start literate programming for the web using JavaScript without any other tools, dependencies, or build processes.
 
+[see it in action](https://bl.ocks.org/vijithassar/51a0eea01d26158611b8dc07be91c1aa)
+
 # Instructions
 
 ## Loading as `<script>` tag
+
+```html
+<script type="text/javascript" src="https://unpkg.com/lit-web">
+```
 
 Simply load both `lit-web.js` and a Markdown document containing literate programming on the page using `<script>` tags. The JavaScript code blocks from your Markdown document will execute, and the Markdown portions will be commented out on the fly so that debugging tools will point to the correct line number with documentation intact.
 
@@ -30,7 +36,7 @@ Some HTML to serve it:
 ```html
 <html>
     <head>
-        <script type="text/javascript" src="//path/to/lit-web.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/lit-web"></script>
         <script type="text/markdown" src="//path/to/app.md"></script>
     </head>
     <body>
@@ -57,10 +63,17 @@ The `type` attribute for your literate JavaScript script tag must be `text/markd
 
 ## Loading as ES Module
 
-Loading as a script tag is easiest, but for more stable application builds which allow dynamic execution of arbitrary Markdown you can also `import` the module. (If you don't need your application to execute *arbitrary* Markdown on the fly, you're probably better off with a build-oriented tool such as [lit](https://github.com/vijithassar/lit) or the [Markdown importer](https://www.npmjs.com/package/rollup-plugin-markdown) for [Rollup](https://rollupjs.org).)
+Loading as a script tag is easiest, but for more stable application builds which allow dynamic execution of arbitrary Markdown you can also install from npm.
+
+```bash
+# install lit-web module
+$ npm install lit-web
+```
+
+Then you can just `import` the module:
 
 ```javascript
-// import ES module during a build proecess
+// import ES module during a build process
 import 'lit-web';
 ```
 
@@ -70,6 +83,8 @@ In order to `import` directly into a live web app over remote HTTP, you must spe
 // import ES module remotely over HTTP
 import '//path/to/lit-web.js';
 ```
+
+If you don't need your application to execute *arbitrary* Markdown on the fly, you're probably better off with a build-oriented tool such as [lit](https://github.com/vijithassar/lit) or the [Markdown importer](https://www.npmjs.com/package/rollup-plugin-markdown) for [Rollup](https://rollupjs.org).
 
 # Caveats
 

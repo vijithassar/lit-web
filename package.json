@@ -1,6 +1,6 @@
 {
   "name": "lit-web",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "client-side parsing of JavaScript literate programming in Markdown documents",
   "main": "build/lit-web.js",
   "module": "index.js",
