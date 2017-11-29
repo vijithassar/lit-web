@@ -59,7 +59,7 @@ console.log('hello world');
 
 You *must* include `js` or `javascript` as a language specifier after opening up a fenced code block in Markdown. Fenced code blocks that specify any other language and fenced code blocks that do not specify a language at all will be ignored. This makes it possible for you to include other code in your Markdown file without that code being executed. This is particularly useful for including Bash commands.
 
-The `type` attribute for your literate JavaScript script tag must be `text/markdown` so that `lit-web` can identify which scripts are loading Markdown documents that it should process and execute. Alternatively, you can use `text/literate-javascript`, which may be useful if elsewhere you are also loading Markdown URLs for reasons other than code execution. However, the `type` attribute for `lit-web.js` must instead be boring old `text/javascript`, because before it is loaded there is no way to parse literate scripts. 
+The `type` attribute for your literate JavaScript script tag should be `text/markdown` so that `lit-web` can identify which scripts are loading Markdown documents that it should process and execute. Alternatively, you can also use the non-standard `type` attribute value `text/literate-javascript`, which may be useful if elsewhere you are also loading Markdown URLs for reasons other than code execution and need to be able to distinguish them from your literate programming. However, the `type` attribute for `lit-web.js` must instead be boring ol' `text/javascript`, because before it is loaded there is no way to parse literate scripts. 
 
 ## Loading as ES Module
 
